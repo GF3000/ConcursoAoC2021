@@ -1,42 +1,5 @@
-def get_input():
-    
-    with open("input.txt") as f:
-        entrada = f.readlines()
-    
-    for i in entrada:
-        entrada[entrada.index(i)] = i.replace("\n", "")
-    
-    return entrada
-
-def interpretar_input(input):
-    input_interpretada = []
-    for dupla in input:
-        aux = dupla.split("-")
-        input_interpretada.append([aux[0], aux[1]])    
-    return input_interpretada
-
-
-def crear_diccionarios(entrada):
-    comunicaciones = {}
-    for dupla_main in entrada:
-        for elemento in dupla_main:
-            comunicaciones[elemento] = []
-            for dupla_aux in entrada:
-                if dupla_aux[1] == elemento:
-                    comunicaciones[elemento].append(dupla_aux[0])
-                elif dupla_aux[0] == elemento:
-                    comunicaciones[elemento].append(dupla_aux[1])
-    return (comunicaciones)
-
-def crear_listado_cuevas(entrada):
-    listado = []
-    for dupla in entrada:
-        listado.append(dupla[0])
-        listado.append(dupla[1])
-    set_listado = set(listado)
-    return list(set_listado)
-    
-
+   
+caminos_validos = []
 def es_camino_valido(camino, ya_visitadas, inicio, comodin, veces_usado_comodin):
     camino.append(inicio)
     if (inicio.islower() and inicio != comodin): #No comodin
@@ -64,11 +27,9 @@ def es_camino_valido(camino, ya_visitadas, inicio, comodin, veces_usado_comodin)
         else:
             ya_visitadas.pop(-1)
             veces_usado_comodin = 1 
-                
-
-entrada = (interpretar_input(get_input()))
-direcciones = (crear_diccionarios(entrada))
-lista_cuevas = (crear_listado_cuevas(entrada))
+            
+direcciones = {"start": ["A", "b","c"], "A": ["start", "b"], "b":["A", "start", "c", "d"], "c":["start", "b", "E"], "E": ["c", "d"], "d":["b", "E", "end"], "end":["d"]}
+lista_cuevas = ["start", "A", "b", "c", "E", "d", "end"]
 
 #Creamos lista comodines
 lista_comodines = []
@@ -76,15 +37,16 @@ for cueva in lista_cuevas:
     if (cueva.islower() and cueva != "start" and cueva != "end"):
         lista_comodines.append(cueva)
 
-#Almacenaremos los caminos aquí
-caminos_validos = []
+#Creamos una lista donde irán todos los camninos válidos
+listado_total_caminos = []
 
 #Caminos sin comodin
 print("Sin comodin")
 es_camino_valido(camino= [], ya_visitadas=[], inicio= "start", comodin = "", veces_usado_comodin= 2)
 for camino in caminos_validos:
         print(camino)
-
+        listado_total_caminos.append(camino)
+caminos_validos = []
 
 #Caminos con comodin
 for comodin in lista_comodines:
@@ -92,6 +54,8 @@ for comodin in lista_comodines:
     es_camino_valido(camino= [], ya_visitadas=[], inicio= "start", comodin = comodin, veces_usado_comodin= 0)
     for camino in caminos_validos:
         print(camino)
-print("Total: %s caminos validos"%len(caminos_validos))
+        listado_total_caminos.append(camino)
+    caminos_validos = []
+print("Total: %s caminos validos"%len(listado_total_caminos))
 
 
