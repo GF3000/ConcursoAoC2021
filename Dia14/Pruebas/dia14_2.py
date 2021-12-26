@@ -121,16 +121,12 @@ def contar_letras(contador_duplas, contador):
 cadena = get_cadena(get_input())
 reglas = get_reglas(get_input())
 contador_letras = crear_contar_letras()
-print(contador_letras)
 listado_duplas = set(get_posibles_cadenas_resultantes())
 duplas_dia1 = get_duplas(cadena)
-print("\nListado duplas: \n %s"%listado_duplas)
-print("\nRegistro duplas: \n %s"%duplas_dia1)
 contador_duplas = contar_duplas(duplas_dia1, listado_duplas) #Contador duplas antes de empezar
-print("\nContaador inicio = \n %s"%contador_duplas)
+#Hacer pasar 40 pasos
 for _ in range (40):
     contador_duplas = (get_numero_duplas(contador_duplas))
-print("\nContaador final = \n %s"%contador_duplas)
 lista_contador_letras = (contar_letras(contador_duplas, contador_letras))
 #El resultado es la diferencia entre el elemento mas y menos comun
-print(sum(list(lista_contador_letras.values())))
+print(max(list(lista_contador_letras.values()))-min(list(lista_contador_letras.values())))

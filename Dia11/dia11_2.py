@@ -34,19 +34,19 @@ def flashes (matriz):
                 veces +=1
                 if fila == 0: #Fila superior
                     if columna == 0: #Esquina superior izquierda
-                        suma_uno(matrices, fila+1,columna)#abajo
+                        matriz[fila+1][columna] +=1 #abajo
                         matriz[fila+1][columna+1] +=1 #diagonal
                         matriz[fila][columna+1] +=1 #derecha
                     elif columna == (len(matriz)-1): #Esquina superior derecha
-                        suma_uno(matrices, fila+1,columna)#abajo
+                        matriz[fila+1][columna] +=1 #abajo
                         matriz[fila+1][columna-1] +=1 #diagonal
                         matriz[fila][columna-1] +=1 #izquierda
                     else: #Fila superior no esquina
-                        suma_uno(matrices, fila+1,columna)#abajo
+                        matriz[fila+1][columna] +=1 #abajo
                         matriz[fila+1][columna-1] +=1 #diagonal
                         matriz[fila][columna-1] +=1 #izquierda
                         matriz[fila+1][columna+1] +=1 #diagonal
-                        matriz[fila][columna+1] +=1 #derecha
+                        matriz[fila][columna] +=1 #derecha
                 elif fila == (len(matriz)-1): #Fila inferior
                     if columna == 0: #Esquina inferior izquierda
                         matriz[fila-1][columna] +=1 #arriba
@@ -61,23 +61,23 @@ def flashes (matriz):
                         matriz[fila-1][columna-1] +=1 #diagonal
                         matriz[fila][columna-1] +=1 #izquierda
                         matriz[fila-1][columna+1] +=1 #diagonal
-                        matriz[fila][columna+1] +=1 #derecha
+                        matriz[fila][columna] +=1 #derecha
                 else: #Fila normal
                     if columna == 0: #lateral izquierda
                         matriz[fila-1][columna] +=1 #arriba
-                        suma_uno(matrices, fila+1,columna)#abajo
+                        matriz[fila+1][columna] +=1 #abajo
                         matriz[fila-1][columna+1] +=1 #diagonal
                         matriz[fila+1][columna+1] +=1 #diagonal
                         matriz[fila][columna+1] +=1 #derecha
                     elif columna == (len(matriz)-1): #lateral derecha
                         matriz[fila-1][columna] +=1 #arriba
-                        suma_uno(matrices, fila+1,columna)#abajo
+                        matriz[fila+1][columna] +=1 #abajo
                         matriz[fila-1][columna-1] +=1 #diagonal
                         matriz[fila+1][columna-1] +=1 #diagonal
                         matriz[fila][columna-1] +=1 #izquierda
                     else: #Centrado
                         matriz[fila-1][columna] +=1 #arriba
-                        suma_uno(matrices, fila+1,columna)#abajo
+                        matriz[fila+1][columna] +=1 #abajo
                         matriz[fila-1][columna+1] +=1 #diagonal
                         matriz[fila+1][columna+1] +=1 #diagonal
                         matriz[fila-1][columna-1] +=1 #diagonal
@@ -94,13 +94,41 @@ contar_flashes = 0
 while pasos < pasos_finales:
     print("Paso %s"%pasos)
     sumar_paso(entrada)
-    print("Antes del flash")
+
+    suma = flashes(entrada)
+    print(suma)
+    contar_flashes += suma
+
+    suma = flashes(entrada)
+    print(suma)
+    contar_flashes += suma
+
+    suma = flashes(entrada)
+    print(suma)
+    contar_flashes += suma
+
+    suma = flashes(entrada)
+    print(suma)
+    contar_flashes += suma
+    
+    suma = flashes(entrada)
+    print(suma)
+    contar_flashes += suma
+    
+    suma = flashes(entrada)
+    print(suma)
+    contar_flashes += suma
+
+    suma = flashes(entrada)
+    print(suma)
+    contar_flashes += suma
+
+    suma = flashes(entrada)
+    print(suma)
+    contar_flashes += suma
+
     for fila in entrada:
-     print(fila)
-    contar_flashes += flashes(entrada)
-    print("Despues del flash")
-    for fila in entrada:
-     print(fila)
+        print(fila)
     pasos+=1
 
-print(contar_flashes)
+print("Total %s"%contar_flashes)
